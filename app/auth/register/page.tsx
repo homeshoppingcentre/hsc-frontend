@@ -1,8 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
+  const router = useRouter()
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -26,8 +29,10 @@ export default function RegisterPage() {
         throw new Error(data.message || 'Something went wrong')
       }
 
-      setMessage('✅ Registered successfully!')
-      // You could redirect here if you want
+      setMessage('✅ Registered successfully! Redirecting...')
+      setTimeout(() => {
+        router.push('/auth/login')
+      }, 1500)
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'An unexpected error occurred'
